@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "idea-mcp-local": {
+      "command": "npx",
+      "args": ["tsx", "src/local/stdio.ts"],
+      "env": {
+        "IDEA_MCP_DB_PATH": "${HOME}/.idea-mcp/ideas.db"
+      }
+    }
+  }
+}
