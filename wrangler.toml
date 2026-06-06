@@ -6,4 +6,4 @@ compatibility_flags = ["nodejs_compat"]
 [[d1_databases]]
 binding = "DB"
 database_name = "idea-mcp-db"
-database_id = "PLACEHOLDER"   # wrangler d1 create 後に差し替える
+database_id = "f8bdd6ab-32d0-4332-a7e1-d304424e20d6"
