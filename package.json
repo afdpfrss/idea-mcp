@@ -1,0 +1,23 @@
+{
+  "name": "idea-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Product idea management MCP server on Cloudflare Workers + D1",
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit",
+    "db:schema:local": "wrangler d1 execute idea-mcp-db --local --file=schema.sql",
+    "db:schema": "wrangler d1 execute idea-mcp-db --file=schema.sql"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240909.0",
+    "typescript": "^5.5.4",
+    "wrangler": "^3.78.0"
+  }
+}

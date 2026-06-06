@@ -33,3 +33,56 @@ Cloudflare D1       ←── SQLite-compatible shared DB
 | `delete_idea` | 削除 |
 | `advance_status` | ステータスを次のフェーズへ遷移 |
 | `rank_by_ice` | ICE スコア順でランキング表示 |
+
+## ステータス遷移ルール
+
+サーバー側で強制されます（違反は `advance_status` がエラーを返す）。
+
+```
+seed       → validating, archived
+validating → building,    archived
+building   → released,    archived
+released   → （遷移なし）
+archived   → （遷移なし）
+```
+
+## ICE スコア
+
+`ice_score = (impact * confidence) / effort`（小数点 1 桁に丸め）。
+DB カラムではなくアプリ側で計算して付与します。
+
+## Setup & Deploy
+
+```bash
+npm install
+
+# D1 を作成し、払い出された database_id を wrangler.toml に記入
+wrangler d1 create idea-mcp-db
+
+# スキーマ適用（ローカル確認用）
+wrangler d1 execute idea-mcp-db --local --file=schema.sql
+
+# ローカル動作確認（http://localhost:8787/mcp）
+wrangler dev
+
+# 本番スキーマ適用 → デプロイ
+wrangler d1 execute idea-mcp-db --file=schema.sql
+wrangler deploy
+# → https://idea-mcp.<subdomain>.workers.dev/mcp
+```
+
+## Claude 接続設定
+
+`~/.claude/mcp.json`（Claude Code）/
+`~/Library/Application Support/Claude/claude_desktop_config.json`（Claude Desktop）:
+
+```json
+{
+  "mcpServers": {
+    "idea-mcp": {
+      "type": "http",
+      "url": "https://idea-mcp.<subdomain>.workers.dev/mcp"
+    }
+  }
+}
+```
