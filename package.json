@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy",
+    "start:local": "tsx src/local/stdio.ts",
     "typecheck": "tsc --noEmit",
+    "typecheck:local": "tsc --noEmit -p tsconfig.local.json",
     "db:schema:local": "wrangler d1 execute idea-mcp-db --local --file=schema.sql",
     "db:schema": "wrangler d1 execute idea-mcp-db --file=schema.sql"
   },
@@ -17,6 +19,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20240909.0",
+    "@types/node": "^25.9.2",
+    "tsx": "^4.22.4",
     "typescript": "^5.5.4",
     "wrangler": "^3.78.0"
   }
